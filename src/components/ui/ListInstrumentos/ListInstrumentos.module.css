@@ -1,0 +1,26 @@
+.containerPrincipalList {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--letrasColor);
+}
+
+.containerTitle {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--backgroundColor);
+}
+
+.containerList {
+  display: grid;
+  width: 85vw;
+  padding: 2vh;
+  gap: 1vh;
+  max-height: 80vh;
+}

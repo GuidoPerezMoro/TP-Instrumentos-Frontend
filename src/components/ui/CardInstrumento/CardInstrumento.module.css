@@ -1,0 +1,63 @@
+.cardInstrumento {
+  margin: 2vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* Center content vertically */
+  width: 100%;
+}
+
+.imageContainer {
+  flex: 0 0 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.instrumentImage {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  max-height: 180px;
+}
+
+.cardBody {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+}
+
+.envioGratis,
+.envioCosto {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.icon {
+  margin-right: 5px; /* Reduce space between icon and text */
+}
+
+.buttonsContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: auto;
+}
+
+.detailButton,
+.cartButton {
+  flex: 0 0 auto; /* Allow buttons to shrink */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 45%; /* Set maximum width for buttons */
+}

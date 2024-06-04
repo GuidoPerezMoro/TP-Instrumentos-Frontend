@@ -1,0 +1,7 @@
+:root {
+  --backgroundColor: white;
+  --letrasColor: black;
+  --primary-color: #007bff; /* Azul Bootstrap por defecto */
+  --primary-dark-color: #0056b3; /* Azul más oscuro para el hover */
+  --button-text-color: white; /* Color de texto para los botones */
+}
