@@ -1,5 +1,5 @@
+// ListInstrumentos.tsx
 import { FC } from "react";
-
 import "./../../../styles/variables.css"; // Importa las variables primero
 import styles from "./ListInstrumentos.module.css"; // Importa el módulo CSS
 import { CardInstrumento } from "./../CardInstrumento/CardInstrumento";
@@ -17,7 +17,7 @@ export const ListInstrumentos: FC<IListInstrumentos> = ({
   return (
     <div className={styles.containerPrincipalList}>
       <div className={styles.containerTitle}>
-        <h2>{title}</h2>
+        <h1>{title}</h1>
       </div>
       <div className={styles.containerList}>
         {instrumentos.map((inst) => (

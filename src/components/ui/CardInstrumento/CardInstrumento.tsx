@@ -40,7 +40,7 @@ export const CardInstrumento: React.FC<CardInstrumentoProps> = ({
         <div className={styles.imageContainer}>
           <Card.Img
             className={styles.instrumentImage}
-            src={`public/assets/images/Instrumentos/${instrumento.imagen}`}
+            src={instrumento.imagen}
           />
         </div>
         <Card.Body className={styles.cardBody}>

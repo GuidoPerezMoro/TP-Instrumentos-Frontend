@@ -23,6 +23,11 @@ export const NavBar = () => {
                 Productos
               </Link>
             </Nav.Item>
+            <Nav.Item>
+              <Link to={"/productos-tabla"} className="nav-link">
+                Tabla
+              </Link>
+            </Nav.Item>
           </Nav>
         </Container>
       </Navbar>

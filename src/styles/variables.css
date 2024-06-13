@@ -1,7 +1,16 @@
+/*variables.css*/
 :root {
-  --backgroundColor: white;
-  --letrasColor: black;
-  --primary-color: #007bff; /* Azul Bootstrap por defecto */
-  --primary-dark-color: #0056b3; /* Azul más oscuro para el hover */
+  --backgroundColor: #f5f7fa; /* Fondo suave y claro */
+  --letrasColor: #2c3e50; /* Color de texto más oscuro pero no negro */
+
+  --primary-color: #3498db; /* Azul principal */
+  --primary-dark-color: #2980b9; /* Azul más oscuro para el hover */
   --button-text-color: white; /* Color de texto para los botones */
+
+  --primary-background-color: #ecf0f1; /* Fondo claro para encabezados */
+  --primary-text-color: #2c3e50; /* Color de texto del encabezado */
+  --primary-border-color: #bdc3c7; /* Color del borde de la tabla */
+  --hover-background-color: #dfe6e9; /* Fondo para filas al pasar el ratón */
+  --edit-button-color: #27ae60; /* Color para el botón de editar (verde) */
+  --delete-button-color: #e74c3c; /* Color para el botón de eliminar (rojo) */
 }

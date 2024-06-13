@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import styles from "./ProductoDetalle.module.css";
-import { getOneInstrumento } from "../../services/funcionesApi";
 import { Instrumento } from "../../types/Instrumento";
 import { Image } from "react-bootstrap";
+import { getOneInstrumento } from "../../services/instrumentoApi";
 
 export const ProductoDetalle = () => {
   const { id } = useParams<{ id: string }>();
@@ -32,7 +32,7 @@ export const ProductoDetalle = () => {
       <h2 className={styles.instrumentTitle}>{instrumento.instrumento}</h2>
       <Image
         className={styles.instrumentImage}
-        src={`/assets/images/Instrumentos/${instrumento.imagen}`}
+        src={instrumento.imagen}
         alt={instrumento.instrumento}
         fluid
       />
