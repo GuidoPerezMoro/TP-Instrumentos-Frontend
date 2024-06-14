@@ -1,0 +1,53 @@
+/* Carrito.module.css */
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: var(--backgroundColor);
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.heading {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.cartTable {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.cartTable th,
+.cartTable td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.cartTable th {
+  background-color: var(--backgroundColor);
+  padding: 10px;
+}
+
+.cartTable td {
+  padding: 10px;
+}
+
+.thumbnail {
+  width: 50px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.total {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}

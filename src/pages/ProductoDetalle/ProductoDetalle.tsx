@@ -1,26 +1,46 @@
 import { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import styles from "./ProductoDetalle.module.css";
 import { Instrumento } from "../../types/Instrumento";
 import { Image } from "react-bootstrap";
 import { getOneInstrumento } from "../../services/instrumentoApi";
+import { useCarrito } from "../../hooks/useCarrito";
 
 export const ProductoDetalle = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { cart, addCarrito, removeCarrito, removeItemCarrito } = useCarrito();
   const [instrumento, setInstrumento] = useState<Instrumento | null>(null);
+  const [isInCart, setIsInCart] = useState<boolean>(false);
 
   useEffect(() => {
     if (id) {
       getOneInstrumento(Number(id)).then((data) => {
         setInstrumento(data);
+        setIsInCart(cart.some((item) => item.id === data.id));
       });
     }
-  }, [id]);
+  }, [id, cart]);
 
   const handleAddToCart = () => {
-    // Agregar lógica para agregar al carrito
+    if (instrumento) {
+      addCarrito({ ...instrumento, cantidad: 1 });
+      setIsInCart(true);
+    }
+  };
+
+  const handleRemoveFromCart = () => {
+    if (instrumento) {
+      removeCarrito(instrumento);
+      setIsInCart(false);
+    }
+  };
+
+  const handleRemoveItemFromCart = () => {
+    if (instrumento) {
+      removeItemCarrito(instrumento);
+    }
   };
 
   if (!instrumento) {
@@ -68,17 +88,45 @@ export const ProductoDetalle = () => {
         >
           <span className="material-symbols-outlined">arrow_back</span> Volver
         </Button>
-        <Button
-          className={styles.button}
-          variant="primary"
-          onClick={handleAddToCart}
-        >
-          <span className="material-symbols-outlined">shopping_cart</span>
-          Agregar al carrito
-        </Button>
+
+        {isInCart ? (
+          <div className={styles.cartControls}>
+            <Button variant="danger" onClick={handleRemoveFromCart}>
+              <span className="material-symbols-outlined">
+                shopping_cart_off
+              </span>{" "}
+              Remover del carrito
+            </Button>
+            <Form.Control
+              type="number"
+              min={0}
+              value={
+                cart.find((item) => item.id === instrumento.id)?.cantidad || 0
+              }
+              readOnly
+            />
+            <Button variant="secondary" onClick={handleRemoveItemFromCart}>
+              <span className="material-symbols-outlined">
+                keyboard_arrow_down
+              </span>
+            </Button>
+            <Button variant="secondary" onClick={handleAddToCart}>
+              <span className="material-symbols-outlined">
+                keyboard_arrow_up
+              </span>
+            </Button>
+          </div>
+        ) : (
+          <Button
+            className={styles.button}
+            variant="primary"
+            onClick={handleAddToCart}
+          >
+            <span className="material-symbols-outlined">shopping_cart</span>{" "}
+            Agregar al carrito
+          </Button>
+        )}
       </div>
     </div>
   );
 };
-
-export default ProductoDetalle;
