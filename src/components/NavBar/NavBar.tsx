@@ -1,6 +1,6 @@
 // NavBar.tsx
 import { Container, Nav, Navbar, Button } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { CartContext } from "../../context/CarritoContext";
 import "../../styles/variables.css"; // Importa las variables primero
@@ -8,7 +8,6 @@ import styles from "./NavBar.module.css"; // Importa el módulo CSS
 
 export const NavBar = () => {
   const { cart } = useContext(CartContext);
-  const navigate = useNavigate();
 
   const totalItems = cart.reduce((total, item) => total + item.cantidad, 0);
 

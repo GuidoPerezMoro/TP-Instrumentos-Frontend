@@ -1,21 +1,21 @@
 // apiClient.ts
 const API_URL = import.meta.env.VITE_API_URL;
 
-async function request(endpoint: string, options?: RequestInit) {
+export async function request(endpoint: string, options?: RequestInit): Promise<any> {
     const res = await fetch(`${API_URL}${endpoint}`, options);
     const data = await res.json();
     return data;
 }
 
-export function getAll(endpoint: string) {
+export function getAll(endpoint: string): Promise<any> {
     return request(endpoint);
 }
 
-export function getOne(endpoint: string, id: number) {
+export function getOne(endpoint: string, id: number): Promise<any> {
     return request(`${endpoint}/${id}`);
 }
 
-export function create(endpoint: string, body: object) {
+export function create(endpoint: string, body: object): Promise<any> {
     return request(endpoint, {
         method: 'POST',
         headers: {
@@ -25,7 +25,7 @@ export function create(endpoint: string, body: object) {
     });
 }
 
-export function edit(endpoint: string, id: number, body: object) {
+export function edit(endpoint: string, id: number, body: object): Promise<any> {
     return request(`${endpoint}/${id}`, {
         method: 'PUT',
         headers: {
@@ -35,7 +35,7 @@ export function edit(endpoint: string, id: number, body: object) {
     });
 }
 
-export function remove(endpoint: string, id: number) {
+export function remove(endpoint: string, id: number): Promise<any> {
     return request(`${endpoint}/${id}`, {
         method: 'DELETE',
     });

@@ -4,6 +4,7 @@ import "./../../styles/variables.css"; // Importa las variables primero
 import styles from "./Carrito.module.css";
 import { useCarrito } from "../../hooks/useCarrito";
 import { Instrumento } from "../../types/Instrumento";
+import CheckoutMP from "../../components/Mercadopago/CheckoutMp";
 
 const Carrito: FC = () => {
   const { cart, addCarrito, removeCarrito, removeItemCarrito } = useCarrito();
@@ -93,7 +94,8 @@ const Carrito: FC = () => {
             <Button variant="secondary" onClick={handleEmptyCart}>
               Vaciar Carrito
             </Button>
-            <Button variant="primary">Proceder al pago</Button>
+            {/* <Button variant="primary">Proceder al pago</Button> */}
+            <CheckoutMP montoCarrito={calcularTotalCompra()}></CheckoutMP>
           </div>
         </div>
       )}
