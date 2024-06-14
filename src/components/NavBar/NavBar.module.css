@@ -1,3 +1,6 @@
 .cartNavItem {
-  margin-left: auto; /* Empuja el elemento a la derecha */
+  display: flex; /* Se necesita 'display' para aplicar 'd-flex' */
+  margin-top: auto;
+  margin-left: 50vw; /* Empuja el elemento a la derecha */
+  position: relative; /* Corrección para 'position-relative' */
 }

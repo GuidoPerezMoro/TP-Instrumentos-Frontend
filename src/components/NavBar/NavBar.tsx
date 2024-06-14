@@ -40,7 +40,7 @@ export const NavBar = () => {
             </Nav.Item>
             <Nav.Item className={styles.cartNavItem}>
               <Link to={"/carrito"} className="nav-link">
-                <Button variant="outline-primary">
+                <Button variant="primary">
                   <span className="material-symbols-outlined">
                     shopping_cart
                   </span>
