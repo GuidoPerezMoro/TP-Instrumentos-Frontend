@@ -55,6 +55,7 @@ function CheckoutMP({ montoCarrito = 0 }) {
   // redirectMode es optativo y puede ser self, blank o modal
   return (
     <div>
+      <div className={idPreference ? "divInvisible" : "divVisible"}>
       <Button
         onClick={getPreferenceMP}
         className="btMercadoPago"
@@ -62,6 +63,7 @@ function CheckoutMP({ montoCarrito = 0 }) {
       >
         Proceder al pago
       </Button>
+      </div>
       <div className={idPreference ? "divVisible" : "divInvisible"}>
         <Wallet
           initialization={{ preferenceId: idPreference, redirectMode: "blank" }}

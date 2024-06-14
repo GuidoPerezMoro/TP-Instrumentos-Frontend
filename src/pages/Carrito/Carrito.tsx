@@ -6,7 +6,7 @@ import { useCarrito } from "../../hooks/useCarrito";
 import { Instrumento } from "../../types/Instrumento";
 import CheckoutMP from "../../components/Mercadopago/CheckoutMp";
 
-const Carrito: FC = () => {
+export const Carrito: FC = () => {
   const { cart, addCarrito, removeCarrito, removeItemCarrito } = useCarrito();
 
   const handleRemoveItem = (product: Instrumento) => {
@@ -94,7 +94,6 @@ const Carrito: FC = () => {
             <Button variant="secondary" onClick={handleEmptyCart}>
               Vaciar Carrito
             </Button>
-            {/* <Button variant="primary">Proceder al pago</Button> */}
             <CheckoutMP montoCarrito={calcularTotalCompra()}></CheckoutMP>
           </div>
         </div>
