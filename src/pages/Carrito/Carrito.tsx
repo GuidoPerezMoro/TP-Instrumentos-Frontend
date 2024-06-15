@@ -91,10 +91,14 @@ export const Carrito: FC = () => {
             Total de compra: ${calcularTotalCompra()}
           </div>
           <div className={styles.actions}>
-            <Button variant="secondary" onClick={handleEmptyCart}>
-              Vaciar Carrito
-            </Button>
-            <CheckoutMP montoCarrito={calcularTotalCompra()}></CheckoutMP>
+            <div>
+              <Button variant="secondary" onClick={handleEmptyCart}>
+                Vaciar Carrito
+              </Button>
+            </div>
+            <div>
+              <CheckoutMP montoCarrito={calcularTotalCompra()}></CheckoutMP>
+            </div>
           </div>
         </div>
       )}

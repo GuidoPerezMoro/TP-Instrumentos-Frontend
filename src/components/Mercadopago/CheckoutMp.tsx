@@ -2,7 +2,7 @@
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
-import "./CheckoutMp.css";
+import styles from "./CheckoutMp.module.css";
 import { PreferenceMp } from "../../types/PreferenceMp";
 import { createPreferenceMP } from "../../services/MercadoPagoApi";
 
@@ -11,9 +11,11 @@ const MP_PUBLIC_KEY = import.meta.env.VITE_MP_PUBLIC_KEY;
 
 function CheckoutMP({ montoCarrito = 0 }) {
   const [idPreference, setIdPreference] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const getPreferenceMP = async () => {
     if (montoCarrito > 0) {
+      setLoading(true);
       const response: PreferenceMp = await createPreferenceMP({
         id: 0,
         titulo: "Pedido Instrumentos",
@@ -41,7 +43,12 @@ function CheckoutMP({ montoCarrito = 0 }) {
         },
       });
       console.log("Preference id: " + response.id);
-      if (response) setIdPreference(response.id);
+      if (response) {
+        setTimeout(() => {
+          setIdPreference(response.id);
+          setLoading(false);
+        }, 500);
+      }
     } else {
       alert("Agregue al menos un plato al carrito");
     }
@@ -54,17 +61,20 @@ function CheckoutMP({ montoCarrito = 0 }) {
 
   // redirectMode es optativo y puede ser self, blank o modal
   return (
-    <div>
-      <div className={idPreference ? "divInvisible" : "divVisible"}>
-      <Button
-        onClick={getPreferenceMP}
-        className="btMercadoPago"
-        style={{ marginLeft: "auto" }}
+    <div className={styles.checkoutContainer}>
+      <div
+        className={
+          idPreference || loading ? styles.divInvisible : styles.divVisible
+        }
       >
-        Proceder al pago
-      </Button>
+        <Button onClick={getPreferenceMP} className={styles.buttonMercadoPago}>
+          Proceder al pago
+        </Button>
       </div>
-      <div className={idPreference ? "divVisible" : "divInvisible"}>
+      <div className={loading ? styles.divVisible : styles.divInvisible}>
+        <div className={styles.loadingSpinner}></div>
+      </div>
+      <div className={idPreference ? styles.divVisible : styles.divInvisible}>
         <Wallet
           initialization={{ preferenceId: idPreference, redirectMode: "blank" }}
           customization={{ texts: { valueProp: "smart_option" } }}
