@@ -5,6 +5,7 @@ import { Button } from "react-bootstrap";
 import styles from "./CheckoutMp.module.css";
 import { PreferenceMp } from "../../types/PreferenceMp";
 import { createPreferenceMP } from "../../services/MercadoPagoApi";
+import { useCarrito } from "../../hooks/useCarrito";
 
 // Lee la clave pública desde la variable de entorno
 const MP_PUBLIC_KEY = import.meta.env.VITE_MP_PUBLIC_KEY;
@@ -12,6 +13,7 @@ const MP_PUBLIC_KEY = import.meta.env.VITE_MP_PUBLIC_KEY;
 function CheckoutMP({ montoCarrito = 0 }) {
   const [idPreference, setIdPreference] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const { cart, addCarrito, removeCarrito, removeItemCarrito } = useCarrito();
 
   const getPreferenceMP = async () => {
     if (montoCarrito > 0) {

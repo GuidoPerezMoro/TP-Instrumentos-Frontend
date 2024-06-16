@@ -9,10 +9,6 @@ import CheckoutMP from "../../components/Mercadopago/CheckoutMp";
 export const Carrito: FC = () => {
   const { cart, addCarrito, removeCarrito, removeItemCarrito } = useCarrito();
 
-  const handleRemoveItem = (product: Instrumento) => {
-    removeItemCarrito(product);
-  };
-
   const handleRemoveAll = (product: Instrumento) => {
     removeCarrito(product);
   };
@@ -40,7 +36,7 @@ export const Carrito: FC = () => {
                 <th>Cantidad</th>
                 <th>Precio Unitario</th>
                 <th>Subtotal</th>
-                <th>Acciones</th>
+                <th>Eliminar</th>
               </tr>
             </thead>
             <tbody>
@@ -55,32 +51,46 @@ export const Carrito: FC = () => {
                   </td>
                   <td>{item.instrumento}</td>
                   <td>
-                    <input
-                      type="number"
-                      min={1}
-                      value={item.cantidad}
-                      onChange={(e) =>
-                        addCarrito({
-                          ...item,
-                          cantidad: parseInt(e.target.value),
-                        })
-                      }
-                    />
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <Button
+                        variant="outline-secondary"
+                        onClick={() => removeItemCarrito(item)}
+                        className={styles.cartButton}
+                      >
+                        <span className="material-symbols-outlined">
+                          keyboard_arrow_down
+                        </span>
+                      </Button>
+                      <input
+                        type="text"
+                        value={item.cantidad}
+                        readOnly
+                        className={styles.cartInput}
+                      />
+                      <Button
+                        variant="outline-secondary"
+                        onClick={() =>
+                          addCarrito({ ...item, cantidad: item.cantidad + 1 })
+                        }
+                        className={styles.cartButton}
+                      >
+                        <span className="material-symbols-outlined">
+                          keyboard_arrow_up
+                        </span>
+                      </Button>
+                    </div>
                   </td>
+
                   <td>${item.precio}</td>
                   <td>${item.precio * item.cantidad}</td>
                   <td>
                     <Button
                       variant="danger"
-                      onClick={() => handleRemoveItem(item)}
-                    >
-                      Eliminar Uno
-                    </Button>{" "}
-                    <Button
-                      variant="danger"
                       onClick={() => handleRemoveAll(item)}
                     >
-                      Eliminar Todos
+                      <span className="material-symbols-outlined">
+                        shopping_cart_off
+                      </span>
                     </Button>
                   </td>
                 </tr>

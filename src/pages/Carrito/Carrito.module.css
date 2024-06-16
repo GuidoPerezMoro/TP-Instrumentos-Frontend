@@ -1,7 +1,7 @@
 /* Carrito.module.css */
 
 .container {
-  max-width: 800px;
+  max-width: 80vw;
   margin: 20px auto;
   padding: 20px;
   background-color: var(--backgroundColor);
@@ -37,7 +37,6 @@
 .thumbnail {
   width: 50px;
   height: auto;
-  margin-right: 10px;
 }
 
 .total {
@@ -50,4 +49,54 @@
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
+}
+
+.cartButton {
+  background-color: white;
+  border: 1px solid #ced4da;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.5em;
+  width: 2.5em;
+  padding: 0;
+  cursor: pointer;
+  color: white;
+  margin: 0 0.5em;
+}
+
+.cartInput {
+  width: 3em;
+  text-align: center;
+  margin: 0 0.5em;
+  border: 1px solid #ced4da;
+  border-radius: 0.25em;
+  background-color: #f8f9fa;
+  color: #495057;
+}
+
+.cartButton:hover {
+  background-color: #e9ecef;
+  color: black;
+}
+
+/* Estilos para las filas (tr) */
+tr {
+  display: table-row; /* Comportamiento de fila de tabla */
+}
+
+/* Estilos para las celdas (td) */
+td {
+  display: table-cell; /* Comportamiento de celda de tabla */
+  padding: 1em; /* Ajusta el padding según necesites */
+  text-align: center; /* Centra horizontalmente los contenidos */
+  vertical-align: middle; /* Centra verticalmente los elementos */
+}
+
+/* Estilos específicos para centrar verticalmente los contenidos dentro de td */
+td > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* Ajusta la altura según necesites */
 }
