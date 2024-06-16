@@ -6,5 +6,5 @@ export interface Pedido {
   titulo: string
   fecha: Date
   totalPedido: number
-  detalle: DetallePedido
+  detalle: DetallePedido[]
 }
