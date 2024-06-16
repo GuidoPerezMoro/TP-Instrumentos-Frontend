@@ -12,5 +12,4 @@ export interface Instrumento {
     cantidadVendida: string
     descripcion: string
     categoria: Categoria
-    cantidad: number
 }

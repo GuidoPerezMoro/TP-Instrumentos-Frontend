@@ -80,6 +80,10 @@
   color: black;
 }
 
+.buttonRemoveItem {
+  background-color: red;
+}
+
 /* Estilos para las filas (tr) */
 tr {
   display: table-row; /* Comportamiento de fila de tabla */

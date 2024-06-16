@@ -1,33 +1,33 @@
-import React, { ReactNode, createContext, useState, useEffect } from "react";
-import { Instrumento } from "../types/Instrumento";
+import { ReactNode, createContext, useState, useEffect, FC } from "react";
+import { DetallePedido } from "../types/DetallePedido";
 
 interface CartContextType {
-  cart: Instrumento[];
-  addCarrito: (product: Instrumento) => void;
-  removeCarrito: (product: Instrumento) => void;
-  removeItemCarrito: (product: Instrumento) => void;
-  limpiarCarrito: () => void;
+  cart: DetallePedido[];
+  addToCart: (product: DetallePedido) => void;
+  removeFromCart: (product: DetallePedido) => void;
+  decrementCartItem: (product: DetallePedido) => void;
+  clearCart: () => void;
 }
 
 export const CartContext = createContext<CartContextType>({
   cart: [],
-  addCarrito: () => {},
-  removeCarrito: () => {},
-  removeItemCarrito: () => {},
-  limpiarCarrito: () => {},
+  addToCart: () => {},
+  removeFromCart: () => {},
+  decrementCartItem: () => {},
+  clearCart: () => {},
 });
 
-const initializeCart = (cart: Instrumento[]) => {
+const initializeCart = (cart: DetallePedido[]) => {
   return cart.map((item) => ({
     ...item,
     cantidad: item.cantidad ?? 0, // Asegurarse de que cantidad esté inicializado
   }));
 };
 
-export const CarritoContextProvider: React.FC<{ children: ReactNode }> = ({
+export const CarritoContextProvider: FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [cart, setCart] = useState<Instrumento[]>(() => {
+  const [cart, setCart] = useState<DetallePedido[]>(() => {
     const storedCart = localStorage.getItem("cart");
     return storedCart ? initializeCart(JSON.parse(storedCart)) : [];
   });
@@ -36,26 +36,31 @@ export const CarritoContextProvider: React.FC<{ children: ReactNode }> = ({
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  const addCarrito = (product: Instrumento) => {
+  const addToCart = (product: DetallePedido) => {
+    // Actualizamos el estado del carrito
     setCart((prevCart) => {
+      // Buscamos si el producto ya existe en el carrito
       const existingProduct = prevCart.find((item) => item.id === product.id);
+
       if (existingProduct) {
+        // Si el producto ya existe, incrementamos su cantidad
         return prevCart.map((item) =>
           item.id === product.id
             ? { ...item, cantidad: item.cantidad + 1 }
             : item
         );
       } else {
+        // Si el producto no existe, lo añadimos al carrito con una cantidad inicial de 1
         return [...prevCart, { ...product, cantidad: 1 }];
       }
     });
   };
 
-  const removeCarrito = (product: Instrumento) => {
+  const removeFromCart = (product: DetallePedido) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== product.id));
   };
 
-  const removeItemCarrito = (product: Instrumento) => {
+  const decrementCartItem = (product: DetallePedido) => {
     setCart((prevCart) => {
       const existingProduct = prevCart.find((item) => item.id === product.id);
       if (existingProduct && existingProduct.cantidad > 1) {
@@ -70,7 +75,7 @@ export const CarritoContextProvider: React.FC<{ children: ReactNode }> = ({
     });
   };
 
-  const limpiarCarrito = () => {
+  const clearCart = () => {
     setCart([]);
   };
 
@@ -78,10 +83,10 @@ export const CarritoContextProvider: React.FC<{ children: ReactNode }> = ({
     <CartContext.Provider
       value={{
         cart,
-        addCarrito,
-        limpiarCarrito,
-        removeCarrito,
-        removeItemCarrito,
+        addToCart,
+        clearCart,
+        removeFromCart,
+        decrementCartItem,
       }}
     >
       {children}

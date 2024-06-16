@@ -3,22 +3,26 @@ import { Button, Table } from "react-bootstrap";
 import "./../../styles/variables.css"; // Importa las variables primero
 import styles from "./Carrito.module.css";
 import { useCarrito } from "../../hooks/useCarrito";
-import { Instrumento } from "../../types/Instrumento";
+import { DetallePedido } from "../../types/DetallePedido";
 import CheckoutMP from "../../components/Mercadopago/CheckoutMp";
 
 export const Carrito: FC = () => {
-  const { cart, addCarrito, removeCarrito, removeItemCarrito } = useCarrito();
+  const { cart, addToCart, removeFromCart, decrementCartItem, clearCart } =
+    useCarrito();
 
-  const handleRemoveAll = (product: Instrumento) => {
-    removeCarrito(product);
+  const handleRemoveAll = (detalle: DetallePedido) => {
+    removeFromCart(detalle);
   };
 
   const handleEmptyCart = () => {
-    cart.forEach((item) => removeCarrito(item));
+    clearCart();
   };
 
   const calcularTotalCompra = () => {
-    return cart.reduce((total, item) => total + item.precio * item.cantidad, 0);
+    return cart.reduce(
+      (total, item) => total + item.instrumento.precio * item.cantidad,
+      0
+    );
   };
 
   return (
@@ -41,20 +45,20 @@ export const Carrito: FC = () => {
             </thead>
             <tbody>
               {cart.map((item) => (
-                <tr key={item.id}>
+                <tr key={item.instrumento.id}>
                   <td>
                     <img
-                      src={item.imagen}
-                      alt={item.instrumento}
+                      src={item.instrumento.imagen}
+                      alt={item.instrumento.instrumento}
                       className={styles.thumbnail}
                     />
                   </td>
-                  <td>{item.instrumento}</td>
+                  <td>{item.instrumento.instrumento}</td>
                   <td>
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <Button
                         variant="outline-secondary"
-                        onClick={() => removeItemCarrito(item)}
+                        onClick={() => decrementCartItem(item)}
                         className={styles.cartButton}
                       >
                         <span className="material-symbols-outlined">
@@ -70,7 +74,7 @@ export const Carrito: FC = () => {
                       <Button
                         variant="outline-secondary"
                         onClick={() =>
-                          addCarrito({ ...item, cantidad: item.cantidad + 1 })
+                          addToCart({ ...item, cantidad: item.cantidad + 1 })
                         }
                         className={styles.cartButton}
                       >
@@ -80,18 +84,20 @@ export const Carrito: FC = () => {
                       </Button>
                     </div>
                   </td>
-
-                  <td>${item.precio}</td>
-                  <td>${item.precio * item.cantidad}</td>
+                  <td>${item.instrumento.precio}</td>
+                  <td>${item.instrumento.precio * item.cantidad}</td>
                   <td>
-                    <Button
-                      variant="danger"
-                      onClick={() => handleRemoveAll(item)}
-                    >
-                      <span className="material-symbols-outlined">
-                        shopping_cart_off
-                      </span>
-                    </Button>
+                    <div id="buttonRemoveItem">
+                      <Button
+                        className={styles.buttonRemoveItem}
+                        variant="danger"
+                        onClick={() => handleRemoveAll(item)}
+                      >
+                        <span className="material-symbols-outlined">
+                          shopping_cart_off
+                        </span>
+                      </Button>
+                    </div>
                   </td>
                 </tr>
               ))}
