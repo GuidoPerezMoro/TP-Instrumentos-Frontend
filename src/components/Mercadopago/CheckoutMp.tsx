@@ -21,7 +21,7 @@ function CheckoutMP({ montoCarrito = 0 }) {
         titulo: "Pedido Instrumentos",
         fecha: new Date(),
         totalPedido: montoCarrito,
-        detalle: [
+        detallesPedido: [
           {
             id: 0,
             cantidad: 0,
@@ -39,7 +39,6 @@ function CheckoutMP({ montoCarrito = 0 }) {
                 id: 0,
                 categoria: "",
               },
-              cantidad: 0,
             },
           },
         ],

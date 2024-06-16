@@ -5,8 +5,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./CardInstrumento.module.css";
 import { Instrumento } from "../../../types/Instrumento";
 import { useCarrito } from "../../../hooks/useCarrito";
-import { DetallePedido } from "../../../types/DetallePedido";
-import { createDetallePedido } from "../../../services/DetallePedidoApi";
+import CartInstrumento from "../../../types/CartInstrumento";
 
 interface CardInstrumentoProps {
   instrumento: Instrumento;
@@ -19,34 +18,33 @@ export const CardInstrumento: FC<CardInstrumentoProps> = ({ instrumento }) => {
 
   // Verificamos si el instrumento está en el carrito
   useEffect(() => {
-    setIsInCart(cart.some((item) => item.instrumento.id === instrumento.id));
+    setIsInCart(cart.some((item) => item.id === instrumento.id));
   }, [cart, instrumento.id]);
 
   const handleViewDetail = () => {
     navigate(`/producto/${instrumento.id}`);
   };
+  // detalle
 
   const handleAddToCart = async () => {
     try {
       if (isInCart) {
         // Si isInCart es true, significa que el instrumento está en el carrito
-        const detallePedidoExistente = cart.find(
-          (detalle) => detalle.instrumento.id === instrumento.id
-        );
+        const item = cart.find((item) => item.id === instrumento.id);
 
-        if (detallePedidoExistente) {
-          // Si ya existe un detalle, simplemente incrementamos la cantidad en uno
-          addToCart(detallePedidoExistente);
-          console.log(detallePedidoExistente.cantidad);
+        if (item) {
+          // Si ya existe, incrementamos la cantidad en uno
+          addToCart(item);
+          console.log(item.cantidad);
         } else console.log("Esto no debería pasar nunca");
       } else {
-        // Si no existe un detalle previo para este instrumento, lo creamos
-        const nuevoDetallePedido: DetallePedido = await createDetallePedido({
-          instrumento: instrumento,
+        // Si no existe, lo creamos
+        const newItem: CartInstrumento = {
+          ...instrumento, // Copiamos todas las propiedades de instrumento
           cantidad: 1, // Agregamos una unidad inicial
-        });
-        addToCart(nuevoDetallePedido);
-        console.log(nuevoDetallePedido.cantidad);
+        };
+        addToCart(newItem);
+        console.log(newItem.cantidad);
       }
       setIsInCart(true); // Actualizamos el estado isInCart
     } catch (error) {
@@ -59,13 +57,11 @@ export const CardInstrumento: FC<CardInstrumentoProps> = ({ instrumento }) => {
     try {
       if (isInCart) {
         // Si isInCart es true, significa que el instrumento está en el carrito
-        const detallePedidoExistente = cart.find(
-          (detalle) => detalle.instrumento.id === instrumento.id
-        );
+        const item = cart.find((item) => item.id === instrumento.id);
 
-        if (detallePedidoExistente) {
-          // Si encontramos el detalle, lo eliminamos del carrito
-          removeFromCart(detallePedidoExistente);
+        if (item) {
+          // Si encontramos el item, lo eliminamos del carrito
+          removeFromCart(item);
           setIsInCart(false); // Actualizamos el estado isInCart
         }
       }
@@ -79,14 +75,12 @@ export const CardInstrumento: FC<CardInstrumentoProps> = ({ instrumento }) => {
     try {
       if (isInCart) {
         // Si isInCart es true, significa que el instrumento está en el carrito
-        const detallePedidoExistente = cart.find(
-          (detalle) => detalle.instrumento.id === instrumento.id
-        );
+        const item = cart.find((item) => item.id === instrumento.id);
 
-        if (detallePedidoExistente) {
+        if (item) {
           // Simplemente llamamos a la función del hook para manejar la cantidad
-          decrementCartItem(detallePedidoExistente);
-          if (detallePedidoExistente.cantidad === 0) setIsInCart(false);
+          decrementCartItem(item);
+          if (item.cantidad === 0) setIsInCart(false);
         }
       }
     } catch (error) {
@@ -180,9 +174,8 @@ export const CardInstrumento: FC<CardInstrumentoProps> = ({ instrumento }) => {
                       type="number"
                       min={0}
                       value={
-                        cart.find(
-                          (item) => item.instrumento.id === instrumento.id
-                        )?.cantidad || 0
+                        cart.find((item) => item.id === instrumento.id)
+                          ?.cantidad || 0
                       }
                       readOnly
                     />

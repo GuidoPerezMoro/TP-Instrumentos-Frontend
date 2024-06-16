@@ -1,11 +1,11 @@
 import { ReactNode, createContext, useState, useEffect, FC } from "react";
-import { DetallePedido } from "../types/DetallePedido";
+import CartInstrumento from "../types/CartInstrumento";
 
 interface CartContextType {
-  cart: DetallePedido[];
-  addToCart: (product: DetallePedido) => void;
-  removeFromCart: (product: DetallePedido) => void;
-  decrementCartItem: (product: DetallePedido) => void;
+  cart: CartInstrumento[];
+  addToCart: (product: CartInstrumento) => void;
+  removeFromCart: (product: CartInstrumento) => void;
+  decrementCartItem: (product: CartInstrumento) => void;
   clearCart: () => void;
 }
 
@@ -17,7 +17,7 @@ export const CartContext = createContext<CartContextType>({
   clearCart: () => {},
 });
 
-const initializeCart = (cart: DetallePedido[]) => {
+const initializeCart = (cart: CartInstrumento[]) => {
   return cart.map((item) => ({
     ...item,
     cantidad: item.cantidad ?? 0, // Asegurarse de que cantidad esté inicializado
@@ -27,7 +27,7 @@ const initializeCart = (cart: DetallePedido[]) => {
 export const CarritoContextProvider: FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [cart, setCart] = useState<DetallePedido[]>(() => {
+  const [cart, setCart] = useState<CartInstrumento[]>(() => {
     const storedCart = localStorage.getItem("cart");
     return storedCart ? initializeCart(JSON.parse(storedCart)) : [];
   });
@@ -36,7 +36,7 @@ export const CarritoContextProvider: FC<{ children: ReactNode }> = ({
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  const addToCart = (product: DetallePedido) => {
+  const addToCart = (product: CartInstrumento) => {
     // Actualizamos el estado del carrito
     setCart((prevCart) => {
       // Buscamos si el producto ya existe en el carrito
@@ -56,11 +56,11 @@ export const CarritoContextProvider: FC<{ children: ReactNode }> = ({
     });
   };
 
-  const removeFromCart = (product: DetallePedido) => {
+  const removeFromCart = (product: CartInstrumento) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== product.id));
   };
 
-  const decrementCartItem = (product: DetallePedido) => {
+  const decrementCartItem = (product: CartInstrumento) => {
     setCart((prevCart) => {
       const existingProduct = prevCart.find((item) => item.id === product.id);
       if (existingProduct && existingProduct.cantidad > 1) {
