@@ -1,0 +1,105 @@
+.buttonsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 1em;
+  padding: 0.5em;
+  background-color: #f8f9fa;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cartAddButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.5em;
+  padding: 0 1em;
+  cursor: pointer;
+  color: white;
+  margin: 0 0.5em;
+  border-radius: 0.25em;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.cartAddButton .btn {
+  width: auto;
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.cartAddButton .material-symbols-outlined {
+  font-size: 1.2em;
+  margin-right: 0.5em;
+}
+
+.cartButton {
+  background-color: #007bff;
+  border: 1px solid #007bff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.5em;
+  width: 2.5em;
+  padding: 0;
+  cursor: pointer;
+  color: white;
+  margin: 0 0.5em;
+  border-radius: 0.25em;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.cartButton:hover {
+  background-color: #e9ecef;
+  color: black;
+}
+
+.cartButton .material-symbols-outlined {
+  font-size: 1.2em;
+}
+
+.cartQuantity {
+  width: 3em;
+  text-align: center;
+  margin: 0 0.5em;
+  border: 1px solid #ced4da;
+  border-radius: 0.25em;
+  background-color: #f8f9fa;
+  color: #495057;
+}
+
+.cartQuantity input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  text-align: center;
+  color: #495057;
+}
+
+#buttonEliminarDelCarrito .btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: white;
+}
+
+#buttonEliminarDelCarrito .btn-danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+#buttonIncrease .btn-secondary,
+#buttonDecrease .btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: white;
+}
+
+#buttonIncrease .btn-secondary:hover,
+#buttonDecrease .btn-secondary:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
+}
