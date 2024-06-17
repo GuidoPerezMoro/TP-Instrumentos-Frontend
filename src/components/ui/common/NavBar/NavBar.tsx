@@ -1,16 +1,11 @@
 // NavBar.tsx
-import { Container, Nav, Navbar, Button } from "react-bootstrap";
+import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { CartContext } from "../../context/CarritoContext";
-import "../../styles/variables.css"; // Importa las variables primero
+import "../../../../styles/variables.css"; // Importa las variables primero
 import styles from "./NavBar.module.css"; // Importa el módulo CSS
+import { Cart } from "../Cart/Cart";
 
 export const NavBar = () => {
-  const { cart } = useContext(CartContext);
-
-  const totalItems = cart.reduce((total, item) => total + item.cantidad, 0);
-
   return (
     <div>
       <Navbar expand="lg" className="bg-body-tertiary">
@@ -37,17 +32,8 @@ export const NavBar = () => {
                 Tabla
               </Link>
             </Nav.Item>
-            <Nav.Item className={styles.cartNavItem}>
-              <Link to={"/carrito"} className="nav-link">
-                <Button variant="primary">
-                  <span className="material-symbols-outlined">
-                    shopping_cart
-                  </span>
-                  {totalItems > 0 && <span>({totalItems})</span>}
-                </Button>
-              </Link>
-            </Nav.Item>
           </Nav>
+          <Cart />
         </Container>
       </Navbar>
     </div>

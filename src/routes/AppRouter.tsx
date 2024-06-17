@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { NavBar } from "../components/NavBar/NavBar";
+import { NavBar } from "../components/ui/common/NavBar/NavBar";
 import { Home } from "../pages/Home/Home";
 import { DondeEstamos } from "../pages/DondeEstamos/DondeEstamos";
 import { Productos } from "../pages/Productos/Productos";
@@ -13,7 +13,7 @@ export const AppRouter = () => {
     <>
       {/* Barra de navegación */}
       <NavBar />
-      {/* Definición de las rutas */}
+      {/* Rutas */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/donde-estamos" element={<DondeEstamos />} />

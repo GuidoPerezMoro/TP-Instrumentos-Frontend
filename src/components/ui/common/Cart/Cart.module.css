@@ -1,0 +1,6 @@
+.cartNavItem {
+  display: flex;
+  margin-top: auto;
+  /* margin-left: 50vw; Empuja el elemento a la derecha */
+  position: relative;
+}
