@@ -12,13 +12,11 @@ export const ProductoDetalle = () => {
   const navigate = useNavigate();
   const { cart } = useCarrito();
   const [instrumento, setInstrumento] = useState<Instrumento | null>(null);
-  const [isInCart, setIsInCart] = useState<boolean>(false);
 
   useEffect(() => {
     if (id) {
       getOneInstrumento(Number(id)).then((data) => {
         setInstrumento(data);
-        setIsInCart(cart.some((item) => item.id === data.id));
       });
     }
   }, [id, cart]);

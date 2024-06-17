@@ -2,5 +2,5 @@
 import { Instrumento } from "./Instrumento";
 
 export default interface CartInstrumento extends Instrumento {
-    cantidad: number;
-  }
+  cantidad: number;
+}

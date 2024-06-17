@@ -1,6 +1,4 @@
 import { DetallePedido } from "./DetallePedido"
-
-
 export interface Pedido {
   id: number
   titulo: string

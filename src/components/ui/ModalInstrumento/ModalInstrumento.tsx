@@ -29,7 +29,6 @@ export const ModalInstrumento: FC<ModalInstrumentoProps> = ({
     cantidadVendida: "",
     descripcion: "",
     categoria: { id: 0, categoria: "" },
-    cantidad: 0,
   });
   const [categorias, setCategorias] = useState<Categoria[]>([]);
 
@@ -65,7 +64,6 @@ export const ModalInstrumento: FC<ModalInstrumentoProps> = ({
         descripcion: "",
         categoria:
           categorias.length > 0 ? categorias[0] : { id: 0, categoria: "" },
-        cantidad: 0,
       });
     }
   }, [instrumentoToEdit, categorias]);

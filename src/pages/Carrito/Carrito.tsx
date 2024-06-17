@@ -1,3 +1,4 @@
+// Carrito.tsx
 import { FC } from "react";
 import { Button, Table } from "react-bootstrap";
 import "./../../styles/variables.css"; // Importa las variables primero
