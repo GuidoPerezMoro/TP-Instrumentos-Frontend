@@ -6,8 +6,10 @@ import { Instrumento } from "../../types/Instrumento";
 import { getOneInstrumento } from "../../services/instrumentoApi";
 import { useCarrito } from "../../hooks/useCarrito";
 import { CartButtons } from "../../components/ui/CartButtons/CartButtons";
+import { useAuth } from "../../hooks/useAuth";
 
 export const ProductoDetalle = () => {
+  const { isAuthenticated, role } = useAuth();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { cart } = useCarrito();
@@ -66,8 +68,9 @@ export const ProductoDetalle = () => {
         >
           <span className="material-symbols-outlined">arrow_back</span> Volver
         </Button>
-        <CartButtons instrumento={instrumento} />{" "}
-        {/* Utiliza el nuevo componente */}
+        {isAuthenticated && (role == "DEVELOPER" || role == "CLIENTE") && (
+          <CartButtons instrumento={instrumento} />
+        )}
       </div>
     </div>
   );

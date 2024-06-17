@@ -11,6 +11,8 @@ import {
 import { Instrumento } from "../../types/Instrumento";
 import { ModalInstrumento } from "../../components/ui/ModalInstrumento/ModalInstrumento";
 import { useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
+import { useAuth } from "../../hooks/useAuth";
 
 export const ProductosTabla: FC = () => {
   const [instrumentos, setInstrumentos] = useState<Instrumento[]>([]);
@@ -18,6 +20,7 @@ export const ProductosTabla: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [instrumentoToEdit, setInstrumentoToEdit] =
     useState<Instrumento | null>(null);
+  const { isAuthenticated, role } = useAuth();
   const navigate = useNavigate();
 
   const fetchInstrumentos = async () => {
@@ -72,15 +75,20 @@ export const ProductosTabla: FC = () => {
     return <div>Obteniendo instrumentos...</div>;
   }
 
+  // A la ruta solo pueden acceder los roles DEVELOPER, ADMIN, OPERADOR
   return (
     <>
       <h1 className={styles.title}>Tabla de instrumentos</h1>
-      <button
-        onClick={openModal}
-        className={`${styles.button} ${styles["button-add"]}`}
-      >
-        Agregar Instrumento
-      </button>
+      {isAuthenticated && (role == "DEVELOPER" || role == "ADMIN") && (
+        <Button
+          variant="primary"
+          onClick={openModal}
+          className={`${styles.button} ${styles["button-add"]}`}
+        >
+          Agregar Instrumento
+        </Button>
+      )}
+
       <table className={styles.table}>
         <thead>
           <tr>
@@ -88,7 +96,9 @@ export const ProductosTabla: FC = () => {
             <th className={styles.th}>Categoría</th>
             <th className={styles.th}>Precio</th>
             <th className={styles.th}>Editar</th>
-            <th className={styles.th}>Eliminar</th>
+            {isAuthenticated && (role == "DEVELOPER" || role == "ADMIN") && (
+              <th className={styles.th}>Eliminar</th>
+            )}
           </tr>
         </thead>
         <tbody>
@@ -110,14 +120,16 @@ export const ProductosTabla: FC = () => {
                   Editar
                 </button>
               </td>
-              <td className={styles.td}>
-                <button
-                  className={`${styles.button} ${styles["button-delete"]}`}
-                  onClick={() => handleDelete(instrumento.id)}
-                >
-                  Eliminar
-                </button>
-              </td>
+              {isAuthenticated && (role == "DEVELOPER" || role == "ADMIN") && (
+                <td className={styles.td}>
+                  <button
+                    className={`${styles.button} ${styles["button-delete"]}`}
+                    onClick={() => handleDelete(instrumento.id)}
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

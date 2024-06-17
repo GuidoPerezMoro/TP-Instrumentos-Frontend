@@ -1,5 +1,8 @@
+// Role.ts
 export enum Role {
-    ADMIN = "ADMIN",
     DEVELOPER = "DEVELOPER",
-    CLIENT = "CLIENT"
+    ADMIN = "ADMIN",
+    OPERADOR = "OPERADOR",
+    CLIENTE = "CLIENTE",
+    INVITADO = "INVITADO"
 }

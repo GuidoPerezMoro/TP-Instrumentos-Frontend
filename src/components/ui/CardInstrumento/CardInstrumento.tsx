@@ -5,12 +5,14 @@ import { useNavigate } from "react-router-dom";
 import styles from "./CardInstrumento.module.css";
 import { Instrumento } from "../../../types/Instrumento";
 import { CartButtons } from "../CartButtons/CartButtons";
+import { useAuth } from "../../../hooks/useAuth";
 
 interface CardInstrumentoProps {
   instrumento: Instrumento;
 }
 
 export const CardInstrumento: FC<CardInstrumentoProps> = ({ instrumento }) => {
+  const { isAuthenticated, role } = useAuth();
   const navigate = useNavigate();
 
   const handleViewDetail = () => {
@@ -60,7 +62,9 @@ export const CardInstrumento: FC<CardInstrumentoProps> = ({ instrumento }) => {
                 Detalle
               </Button>
             </div>
-            <CartButtons instrumento={instrumento} />{" "}
+            {isAuthenticated && (role == "DEVELOPER" || role == "CLIENTE") && (
+              <CartButtons instrumento={instrumento} />
+            )}
           </div>
         </Card.Body>
       </div>
