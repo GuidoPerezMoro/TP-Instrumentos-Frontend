@@ -1,7 +1,6 @@
-// ProductosTabla.tsx
 import { FC, useEffect, useState } from "react";
-import "../../styles/variables.css"; // Importa las variables primero
-import styles from "./ProductosTabla.module.css"; // Importa el módulo CSS
+import "../../styles/variables.css";
+import styles from "./ProductosTabla.module.css";
 import {
   createInstrumento,
   deleteInstrumento,
@@ -20,6 +19,10 @@ export const ProductosTabla: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [instrumentoToEdit, setInstrumentoToEdit] =
     useState<Instrumento | null>(null);
+  const [sortConfig, setSortConfig] = useState<{
+    key: string;
+    direction: string;
+  } | null>(null);
   const { isAuthenticated, role } = useAuth();
   const navigate = useNavigate();
 
@@ -36,8 +39,15 @@ export const ProductosTabla: FC = () => {
   };
 
   const handleDelete = async (id: number) => {
-    await deleteInstrumento(id);
-    fetchInstrumentos();
+    try {
+      await deleteInstrumento(id);
+      console.log(`Instrumento con id ${id} eliminado.`);
+      fetchInstrumentos();
+      console.log("Instrumentos actualizados después de la eliminación.");
+    } catch (error) {
+      console.error("Error al eliminar el instrumento:", error);
+      fetchInstrumentos();
+    }
   };
 
   const handleEdit = (instrumento: Instrumento) => {
@@ -67,19 +77,58 @@ export const ProductosTabla: FC = () => {
     setIsModalOpen(false);
   };
 
+  const handleSort = (key: string) => {
+    let direction = "ascending";
+    if (
+      sortConfig &&
+      sortConfig.key === key &&
+      sortConfig.direction === "ascending"
+    ) {
+      direction = "descending";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const getNestedProperty = (obj: any, path: string) => {
+    return path.split(".").reduce((acc, part) => acc && acc[part], obj);
+  };
+
+  const sortedInstrumentos = () => {
+    let sorted = [...instrumentos];
+    if (sortConfig !== null) {
+      sorted.sort((a, b) => {
+        const aValue = getNestedProperty(a, sortConfig.key);
+        const bValue = getNestedProperty(b, sortConfig.key);
+
+        if (aValue < bValue) {
+          return sortConfig.direction === "ascending" ? -1 : 1;
+        }
+        if (aValue > bValue) {
+          return sortConfig.direction === "ascending" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return sorted;
+  };
+
   useEffect(() => {
     fetchInstrumentos();
   }, []);
+
+  const getSortIndicator = (key: string) => {
+    if (!sortConfig || sortConfig.key !== key) return null;
+    return sortConfig.direction === "ascending" ? "▲" : "▼";
+  };
 
   if (loading) {
     return <div>Obteniendo instrumentos...</div>;
   }
 
-  // A la ruta solo pueden acceder los roles DEVELOPER, ADMIN, OPERADOR
   return (
     <>
       <h1 className={styles.title}>Tabla de instrumentos</h1>
-      {isAuthenticated && (role == "DEVELOPER" || role == "ADMIN") && (
+      {isAuthenticated && (role === "DEVELOPER" || role === "ADMIN") && (
         <Button
           variant="primary"
           onClick={openModal}
@@ -92,17 +141,26 @@ export const ProductosTabla: FC = () => {
       <table className={styles.table}>
         <thead>
           <tr>
-            <th className={styles.th}>Nombre</th>
-            <th className={styles.th}>Categoría</th>
-            <th className={styles.th}>Precio</th>
+            <th className={styles.th} onClick={() => handleSort("instrumento")}>
+              Nombre {getSortIndicator("instrumento")}
+            </th>
+            <th
+              className={styles.th}
+              onClick={() => handleSort("categoria.categoria")}
+            >
+              Categoría {getSortIndicator("categoria.categoria")}
+            </th>
+            <th className={styles.th} onClick={() => handleSort("precio")}>
+              Precio {getSortIndicator("precio")}
+            </th>
             <th className={styles.th}>Editar</th>
-            {isAuthenticated && (role == "DEVELOPER" || role == "ADMIN") && (
+            {isAuthenticated && (role === "DEVELOPER" || role === "ADMIN") && (
               <th className={styles.th}>Eliminar</th>
             )}
           </tr>
         </thead>
         <tbody>
-          {instrumentos.map((instrumento) => (
+          {sortedInstrumentos().map((instrumento) => (
             <tr key={instrumento.id} className={styles.tr}>
               <td
                 className={`${styles.td} ${styles["instrumento-nombre"]}`}
@@ -120,16 +178,17 @@ export const ProductosTabla: FC = () => {
                   Editar
                 </button>
               </td>
-              {isAuthenticated && (role == "DEVELOPER" || role == "ADMIN") && (
-                <td className={styles.td}>
-                  <button
-                    className={`${styles.button} ${styles["button-delete"]}`}
-                    onClick={() => handleDelete(instrumento.id)}
-                  >
-                    Eliminar
-                  </button>
-                </td>
-              )}
+              {isAuthenticated &&
+                (role === "DEVELOPER" || role === "ADMIN") && (
+                  <td className={styles.td}>
+                    <button
+                      className={`${styles.button} ${styles["button-delete"]}`}
+                      onClick={() => handleDelete(instrumento.id)}
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                )}
             </tr>
           ))}
         </tbody>
