@@ -6,6 +6,7 @@ import { Productos } from "../pages/Productos/Productos";
 import { ProductoDetalle } from "../pages/ProductoDetalle/ProductoDetalle";
 import { ProductosTabla } from "../pages/ProductosTabla/ProductosTabla";
 import Carrito from "../pages/Carrito/Carrito";
+import { Login } from "../pages/Login/Login";
 
 // Componente AppRouter que define las rutas de la aplicación
 export const AppRouter = () => {
@@ -15,12 +16,14 @@ export const AppRouter = () => {
       <NavBar />
       {/* Rutas */}
       <Routes>
+        {/* TODO: Redirigir a login cuando no esté la sesión iniciada. Implementar roles*/}
         <Route path="/" element={<Home />} />
         <Route path="/donde-estamos" element={<DondeEstamos />} />
         <Route path="/productos" element={<Productos />} />
         <Route path="/productos-tabla" element={<ProductosTabla />} />
         <Route path="/producto/:id" element={<ProductoDetalle />} />
         <Route path="/carrito" element={<Carrito />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </>
   );

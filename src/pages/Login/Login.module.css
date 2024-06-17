@@ -1,0 +1,91 @@
+.containerLogin {
+  width: 100vw;
+  height: 100vh;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    142deg,
+    rgba(10, 10, 111, 1) 10%,
+    rgba(0, 212, 255, 1) 90%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerForm {
+  display: flex;
+  background-color: rgb(209, 206, 206);
+  width: 40%;
+  padding: 2rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem;
+}
+
+.icon {
+  font-size: 10vh;
+  font-family: "Material Icons";
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.label {
+  font-weight: bold;
+  align-self: flex-start;
+  margin-left: 5%;
+}
+
+.input {
+  width: 90%;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.switchContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.switch {
+  margin-left: 0.5rem;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+}
+
+.linkContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.registerLink {
+  text-decoration: none;
+  color: blue;
+}

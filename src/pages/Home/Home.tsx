@@ -1,9 +1,8 @@
-import { Button } from "react-bootstrap";
 import styles from "./Home.module.css";
 import { useCarrito } from "../../hooks/useCarrito";
 
 export const Home = () => {
-  const { clearCart } = useCarrito();
+  useCarrito();
   return (
     <div className={styles.homeContainer}>
       <h1>Armonía Melódica</h1>
@@ -27,7 +26,6 @@ export const Home = () => {
         compañero de confianza en tu viaje musical. ¡Únete a nosotros y deja que
         la música te lleve a nuevas alturas!
       </p>
-      <Button onClick={clearCart}>Clear</Button>
     </div>
   );
 };
