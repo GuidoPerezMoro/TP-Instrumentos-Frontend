@@ -20,7 +20,10 @@ export const AppRouter = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/donde-estamos" element={<DondeEstamos />} />
-        <Route path="/productos" element={<Productos />} />
+        <Route
+          path="/productos"
+          element={<PrivateRoute element={<Productos />} />}
+        />
         <Route
           path="/productos-tabla"
           element={

@@ -24,11 +24,13 @@ export const NavBar = () => {
                 Donde estamos
               </Link>
             </Nav.Item>
-            <Nav.Item>
-              <Link to={"/productos"} className="nav-link">
-                Productos
-              </Link>
-            </Nav.Item>
+            {isAuthenticated && (
+              <Nav.Item>
+                <Link to={"/productos"} className="nav-link">
+                  Productos
+                </Link>
+              </Nav.Item>
+            )}
             {isAuthenticated &&
               (role == "DEVELOPER" ||
                 role == "ADMIN" ||

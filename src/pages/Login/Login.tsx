@@ -34,6 +34,7 @@ export const Login = () => {
   };
 
   const handleGuestContinue = () => {
+    login(0, "invitado", "INVITADO");
     navigate("/");
   };
 
@@ -92,11 +93,11 @@ export const Login = () => {
             </Button>
           </div>
         </Form>
-        <div className={styles.linkContainer}>
+        {/* <div className={styles.linkContainer}>
           <Link to="/register" className={styles.registerLink}>
             ¿No tienes una cuenta? Regístrate
           </Link>
-        </div>
+        </div> */}
         <div className={styles.buttonContainer}>
           <Button
             type="button"

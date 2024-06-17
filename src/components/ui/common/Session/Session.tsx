@@ -10,9 +10,10 @@ export const Session: React.FC = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleIconClick = () => {
-    if (isAuthenticated) {
+    if (isAuthenticated && role !== "INVITADO") {
       setIsDropdownOpen(!isDropdownOpen);
     } else {
+      logout();
       navigate("/login");
     }
   };
