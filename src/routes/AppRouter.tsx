@@ -8,6 +8,7 @@ import { ProductosTabla } from "../pages/ProductosTabla/ProductosTabla";
 import { Carrito } from "../pages/Carrito/Carrito";
 import { Login } from "../pages/Login/Login";
 import PrivateRoute from "./PrivateRoute";
+import Estadisticas from "../pages/Estadisticas/Estadisticas";
 
 // Componente AppRouter que define las rutas de la aplicación
 export const AppRouter = () => {
@@ -43,6 +44,7 @@ export const AppRouter = () => {
             />
           }
         />
+        <Route path="/estadisticas" element={<Estadisticas />} />
       </Routes>
     </>
   );

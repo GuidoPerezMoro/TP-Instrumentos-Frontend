@@ -1,0 +1,19 @@
+.chartContainer {
+  width: 100%;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.sliderContainer {
+  margin: 20px 0;
+}
+
+.errorContainer {
+  text-align: center;
+  color: red;
+}
+
+.sadFace {
+  font-size: 2em;
+  margin-top: 10px;
+}

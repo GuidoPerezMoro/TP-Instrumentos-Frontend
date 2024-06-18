@@ -1,5 +1,5 @@
 // PedidoApi.ts
-import { getAll, getOne, create, edit, remove } from './apiClient';
+import { getAll, getOne, create, edit, remove, request } from './apiClient';
 
 const endpoint = '/pedido';
 
@@ -23,3 +23,6 @@ export function deletePedido(id: number) {
     return remove(endpoint, id);
 }
 
+export function getPedidosByMonthYear() {
+    return request(`${endpoint}/getByMonthYear`);
+}

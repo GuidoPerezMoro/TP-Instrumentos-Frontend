@@ -1,6 +1,5 @@
 // Instrumento.ts
 import { Categoria } from './Categoria';
-
 export interface Instrumento {
     id: number
     instrumento: string

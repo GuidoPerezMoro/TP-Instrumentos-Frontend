@@ -1,0 +1,47 @@
+/* NavBar.module.css */
+
+.navbar {
+  background-color: var(
+    --color-primary
+  ); /* Usando una variable para el color de fondo */
+}
+
+.navbar-brand .nav-link {
+  color: var(--color-text); /* Color del texto del navbar */
+  font-weight: bold;
+}
+
+.nav-link {
+  color: var(--color-text);
+  font-weight: 500;
+  transition: color 0.2s ease-in-out;
+}
+
+.nav-link:hover {
+  color: var(--color-text-hover); /* Color del texto al pasar el mouse */
+}
+
+.nav-item {
+  margin-right: 15px;
+}
+
+/* Ajustes específicos para el componente Cart */
+.cart-icon {
+  color: var(--color-primary); /* Color del icono del carrito */
+  font-size: 1.2rem;
+  margin-left: 10px;
+}
+
+/* Estilos para el componente de sesión */
+.session-button {
+  color: var(--color-text);
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.2s ease-in-out;
+}
+
+.session-button:hover {
+  color: var(--color-text-hover);
+}
