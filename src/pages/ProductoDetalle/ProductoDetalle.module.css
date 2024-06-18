@@ -1,3 +1,5 @@
+/* ProductoDetalle.module.css */
+
 .productoDetalleContainer {
   display: flex;
   flex-direction: column;
@@ -7,6 +9,7 @@
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative; /* Aseguramos que el contenedor principal es relativo para posicionamiento absoluto del botón */
 }
 
 .instrumentTitle {
@@ -14,6 +17,34 @@
   font-weight: bold;
   font-size: 24px;
   margin-bottom: 10px;
+}
+
+.pdfButtonContainer {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+}
+
+.pdfButtonContainer .button {
+  display: flex;
+  align-items: center;
+  background-color: #ff0000; /* Color de fondo Adobe PDF */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.pdfButtonContainer .button:hover {
+  background-color: #cc0000; /* Color de fondo al hacer hover Adobe PDF */
+}
+
+.pdfButtonContainer .icon {
+  margin-right: 8px;
 }
 
 .instrumentImage {

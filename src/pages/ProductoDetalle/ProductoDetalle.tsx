@@ -1,3 +1,4 @@
+// ProductoDetalle.tsx
 import { useEffect, useState } from "react";
 import { Button, Image } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
@@ -7,7 +8,7 @@ import { getOneInstrumento } from "../../services/instrumentoApi";
 import { useCarrito } from "../../hooks/useCarrito";
 import { CartButtons } from "../../components/ui/CartButtons/CartButtons";
 import { useAuth } from "../../hooks/useAuth";
-import { GeneratePdf } from "../../components/GeneratePdf/GeneratePdf";
+import GeneratePdf from "../../components/GeneratePdf/GeneratePdf";
 
 export const ProductoDetalle = () => {
   const { isAuthenticated, role } = useAuth();
@@ -31,6 +32,11 @@ export const ProductoDetalle = () => {
   return (
     <div className={styles.productoDetalleContainer}>
       <h2 className={styles.instrumentTitle}>{instrumento.instrumento}</h2>
+      {isAuthenticated && (role == "DEVELOPER" || role == "ADMIN") && (
+        <div className={styles.pdfButtonContainer}>
+          <GeneratePdf id={instrumento.id} />
+        </div>
+      )}
       <Image
         className={styles.instrumentImage}
         src={instrumento.imagen}
@@ -69,9 +75,6 @@ export const ProductoDetalle = () => {
         >
           <span className="material-symbols-outlined">arrow_back</span> Volver
         </Button>
-        {isAuthenticated && (role == "DEVELOPER" || role == "ADMIN") && (
-          <GeneratePdf instrumento={instrumento} />
-        )}
         {isAuthenticated && (role == "DEVELOPER" || role == "CLIENTE") && (
           <CartButtons instrumento={instrumento} />
         )}

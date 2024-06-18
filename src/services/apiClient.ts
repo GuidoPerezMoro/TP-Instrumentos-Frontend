@@ -40,3 +40,13 @@ export function remove(endpoint: string, id: number): Promise<any> {
         method: 'DELETE',
     });
 }
+
+
+export async function requestFile(endpoint: string, options?: RequestInit): Promise<Blob> {
+    const res = await fetch(`${API_URL}${endpoint}`, options);
+    if (!res.ok) {
+        throw new Error(`Error: ${res.statusText}`);
+    }
+    const blob = await res.blob();
+    return blob;
+}

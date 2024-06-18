@@ -1,5 +1,5 @@
 // instrumentoApi.ts
-import { getAll, getOne, create, edit, remove } from './apiClient';
+import { getAll, getOne, create, edit, remove, requestFile } from './apiClient';
 
 const endpoint = '/instrumento';
 
@@ -21,4 +21,16 @@ export function editInstrumento(id: number, body: object) {
 
 export function deleteInstrumento(id: number) {
     return remove(endpoint, id);
+}
+
+export async function downloadInstrumentoPdf(id: number): Promise<void> {
+    const blob = await requestFile(`${endpoint}/${id}/pdf`);
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `instrumento_${id}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
 }
