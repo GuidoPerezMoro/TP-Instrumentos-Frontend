@@ -7,6 +7,7 @@ import { getOneInstrumento } from "../../services/instrumentoApi";
 import { useCarrito } from "../../hooks/useCarrito";
 import { CartButtons } from "../../components/ui/CartButtons/CartButtons";
 import { useAuth } from "../../hooks/useAuth";
+import { GeneratePdf } from "../../components/GeneratePdf/GeneratePdf";
 
 export const ProductoDetalle = () => {
   const { isAuthenticated, role } = useAuth();
@@ -68,6 +69,9 @@ export const ProductoDetalle = () => {
         >
           <span className="material-symbols-outlined">arrow_back</span> Volver
         </Button>
+        {isAuthenticated && (role == "DEVELOPER" || role == "ADMIN") && (
+          <GeneratePdf instrumento={instrumento} />
+        )}
         {isAuthenticated && (role == "DEVELOPER" || role == "CLIENTE") && (
           <CartButtons instrumento={instrumento} />
         )}
