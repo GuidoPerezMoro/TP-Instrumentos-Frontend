@@ -12,11 +12,12 @@ import {
 import { Instrumento } from "../../types/Instrumento";
 import { ModalInstrumento } from "../../components/ui/ModalInstrumento/ModalInstrumento";
 import { useNavigate } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap"; // Importa Form para el dropdown
 import { useAuth } from "../../hooks/useAuth";
 import GenerateExcel from "../../components/GenerateExcel/GenerateExcel";
 import { Box } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import { getAllCategorias } from "../../services/categoriaApi";
 
 export const ProductosTabla: FC = () => {
   const [instrumentos, setInstrumentos] = useState<Instrumento[]>([]);
@@ -30,6 +31,8 @@ export const ProductosTabla: FC = () => {
   } | null>(null);
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
+  const [categorias, setCategorias] = useState<string[]>([]);
+  const [selectedCategoria, setSelectedCategoria] = useState<string>("Todas");
   const { isAuthenticated, role } = useAuth();
   const navigate = useNavigate();
 
@@ -42,6 +45,19 @@ export const ProductosTabla: FC = () => {
       .catch((error) => {
         console.error("Error al obtener los instrumentos:", error);
         setLoading(false);
+      });
+  };
+
+  const fetchCategorias = async () => {
+    await getAllCategorias()
+      .then((data) => {
+        setCategorias([
+          "Todas",
+          ...data.map((cat: { categoria: string }) => cat.categoria),
+        ]);
+      })
+      .catch((error) => {
+        console.error("Error al obtener las categorías:", error);
       });
   };
 
@@ -117,11 +133,16 @@ export const ProductosTabla: FC = () => {
         return 0;
       });
     }
-    return sorted;
+    return sorted.filter(
+      (instrumento) =>
+        selectedCategoria === "Todas" ||
+        instrumento.categoria.categoria === selectedCategoria
+    );
   };
 
   useEffect(() => {
     fetchInstrumentos();
+    fetchCategorias();
   }, []);
 
   const getSortIndicator = (key: string) => {
@@ -190,61 +211,90 @@ export const ProductosTabla: FC = () => {
         </Box>
       </Box>
 
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th className={styles.th} onClick={() => handleSort("instrumento")}>
-              Nombre {getSortIndicator("instrumento")}
-            </th>
-            <th
-              className={styles.th}
-              onClick={() => handleSort("categoria.categoria")}
+      <Box className={styles.filterSection}>
+        <Form.Group controlId="categoriaFiltro" className={styles.filterGroup}>
+          <Form.Label className={styles.filterLabel}>
+            Filtrar por categoría
+          </Form.Label>
+          <div className={styles.filterSelectContainer}>
+            <Form.Control
+              as="select"
+              value={selectedCategoria}
+              onChange={(e) => setSelectedCategoria(e.target.value)}
+              className={styles.filterSelect}
             >
-              Categoría {getSortIndicator("categoria.categoria")}
-            </th>
-            <th className={styles.th} onClick={() => handleSort("precio")}>
-              Precio {getSortIndicator("precio")}
-            </th>
-            <th className={styles.th}>Editar</th>
-            {isAuthenticated && (role === "DEVELOPER" || role === "ADMIN") && (
-              <th className={styles.th}>Eliminar</th>
-            )}
-          </tr>
-        </thead>
-        <tbody>
-          {sortedInstrumentos().map((instrumento) => (
-            <tr key={instrumento.id} className={styles.tr}>
-              <td
-                className={`${styles.td} ${styles["instrumento-nombre"]}`}
-                onClick={() => handleViewPoint(instrumento.id)}
+              {categorias.map((categoria) => (
+                <option key={categoria} value={categoria}>
+                  {categoria}
+                </option>
+              ))}
+            </Form.Control>
+            <span className={styles.selectArrow}></span>
+          </div>
+        </Form.Group>
+      </Box>
+
+      <Box>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th
+                className={styles.th}
+                onClick={() => handleSort("instrumento")}
               >
-                {instrumento.instrumento}
-              </td>
-              <td className={styles.td}>{instrumento.categoria.categoria}</td>
-              <td className={styles.td}>${instrumento.precio}</td>
-              <td className={styles.td}>
-                <button
-                  className={`${styles.button} ${styles["button-edit"]}`}
-                  onClick={() => handleEdit(instrumento)}
-                >
-                  Editar
-                </button>
-              </td>
+                Nombre {getSortIndicator("instrumento")}
+              </th>
+              <th
+                className={styles.th}
+                onClick={() => handleSort("categoria.categoria")}
+              >
+                Categoría {getSortIndicator("categoria.categoria")}
+              </th>
+              <th className={styles.th} onClick={() => handleSort("precio")}>
+                Precio {getSortIndicator("precio")}
+              </th>
+              <th className={styles.th}>Editar</th>
               {isAuthenticated &&
                 (role === "DEVELOPER" || role === "ADMIN") && (
-                  <td className={styles.td}>
-                    <button
-                      className={`${styles.button} ${styles["button-delete"]}`}
-                      onClick={() => handleDelete(instrumento.id)}
-                    >
-                      Eliminar
-                    </button>
-                  </td>
+                  <th className={styles.th}>Eliminar</th>
                 )}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {sortedInstrumentos().map((instrumento) => (
+              <tr key={instrumento.id} className={styles.tr}>
+                <td
+                  className={`${styles.td} ${styles["instrumento-nombre"]}`}
+                  onClick={() => handleViewPoint(instrumento.id)}
+                >
+                  {instrumento.instrumento}
+                </td>
+                <td className={styles.td}>{instrumento.categoria.categoria}</td>
+                <td className={styles.td}>${instrumento.precio}</td>
+                <td className={styles.td}>
+                  <button
+                    className={`${styles.button} ${styles["button-edit"]}`}
+                    onClick={() => handleEdit(instrumento)}
+                  >
+                    Editar
+                  </button>
+                </td>
+                {isAuthenticated &&
+                  (role === "DEVELOPER" || role === "ADMIN") && (
+                    <td className={styles.td}>
+                      <button
+                        className={`${styles.button} ${styles["button-delete"]}`}
+                        onClick={() => handleDelete(instrumento.id)}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </Box>
       <ModalInstrumento
         isOpen={isModalOpen}
         onClose={closeModal}
