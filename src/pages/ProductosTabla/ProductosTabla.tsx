@@ -16,6 +16,7 @@ import { Button } from "react-bootstrap";
 import { useAuth } from "../../hooks/useAuth";
 import GenerateExcel from "../../components/GenerateExcel/GenerateExcel";
 import { Box } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 
 export const ProductosTabla: FC = () => {
   const [instrumentos, setInstrumentos] = useState<Instrumento[]>([]);
@@ -142,6 +143,7 @@ export const ProductosTabla: FC = () => {
               onClick={openModal}
               className={`${styles.button} ${styles["button-add"]}`}
             >
+              <AddIcon className={styles.icon} />
               Agregar Instrumento
             </Button>
           </Box>

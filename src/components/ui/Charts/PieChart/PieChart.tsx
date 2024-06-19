@@ -37,18 +37,16 @@ const CustomPieChart: FC = () => {
   }, []);
 
   const sortedData = instrumentos
-    .sort((a, b) => parseInt(b.cantidadVendida) - parseInt(a.cantidadVendida))
+    .sort((a, b) => b.cantidadVendida - a.cantidadVendida)
     .slice(0, numToShow);
   const totalSales = sortedData.reduce(
-    (acc, item) => acc + parseInt(item.cantidadVendida),
+    (acc, item) => acc + item.cantidadVendida,
     0
   );
   const pieData = sortedData.map((item) => ({
     name: item.instrumento,
-    value: parseInt(item.cantidadVendida),
-    percentage: ((parseInt(item.cantidadVendida) / totalSales) * 100).toFixed(
-      2
-    ),
+    value: item.cantidadVendida,
+    percentage: ((item.cantidadVendida / totalSales) * 100).toFixed(2),
   }));
 
   const handleSliderChange = (_event: Event, newValue: number | number[]) => {

@@ -8,7 +8,7 @@ export interface Instrumento {
     imagen: string
     precio: number
     costoEnvio: string
-    cantidadVendida: string
+    cantidadVendida: number
     descripcion: string
     categoria: Categoria
 }

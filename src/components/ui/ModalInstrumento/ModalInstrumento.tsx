@@ -26,7 +26,7 @@ export const ModalInstrumento: FC<ModalInstrumentoProps> = ({
     imagen: "",
     precio: 0,
     costoEnvio: "",
-    cantidadVendida: "",
+    cantidadVendida: 0,
     descripcion: "",
     categoria: { id: 0, categoria: "" },
   });
@@ -60,7 +60,7 @@ export const ModalInstrumento: FC<ModalInstrumentoProps> = ({
         imagen: "",
         precio: 0,
         costoEnvio: "",
-        cantidadVendida: "",
+        cantidadVendida: 0,
         descripcion: "",
         categoria:
           categorias.length > 0 ? categorias[0] : { id: 0, categoria: "" },

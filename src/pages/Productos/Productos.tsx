@@ -24,9 +24,6 @@ export const Productos = () => {
   }
 
   return (
-    <ListInstrumentos
-      instrumentos={instrumentos}
-      title={"Lista de Instrumentos"}
-    />
+    <ListInstrumentos instrumentos={instrumentos} title={"Instrumentos"} />
   );
 };

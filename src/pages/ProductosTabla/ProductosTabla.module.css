@@ -19,7 +19,7 @@
 .excelSection {
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* Alineación a la derecha */
+  justify-content: flex-start;
   padding: 5px 10px;
   margin-bottom: 20px;
   margin-left: 20px;
@@ -95,4 +95,8 @@
   margin-bottom: 10px; /* Espacio debajo del botón */
   margin-right: 3vw;
   float: right;
+}
+
+.icon {
+  margin-right: 8px;
 }
