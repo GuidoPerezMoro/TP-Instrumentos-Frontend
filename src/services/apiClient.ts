@@ -41,7 +41,6 @@ export function remove(endpoint: string, id: number): Promise<any> {
     });
 }
 
-
 export async function requestFile(endpoint: string, options?: RequestInit): Promise<Blob> {
     const res = await fetch(`${API_URL}${endpoint}`, options);
     if (!res.ok) {

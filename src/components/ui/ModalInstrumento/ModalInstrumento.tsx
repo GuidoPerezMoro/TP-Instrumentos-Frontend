@@ -60,7 +60,7 @@ export const ModalInstrumento: FC<ModalInstrumentoProps> = ({
         imagen: "",
         precio: 0,
         costoEnvio: "",
-        cantidadVendida: 0,
+        cantidadVendida: 0, // Inicializar en 0 para nuevos instrumentos
         descripcion: "",
         categoria:
           categorias.length > 0 ? categorias[0] : { id: 0, categoria: "" },
@@ -152,15 +152,6 @@ export const ModalInstrumento: FC<ModalInstrumentoProps> = ({
               type="text"
               name="costoEnvio"
               value={instrumento.costoEnvio}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            Cantidad Vendida:
-            <input
-              type="text"
-              name="cantidadVendida"
-              value={instrumento.cantidadVendida}
               onChange={handleChange}
             />
           </label>

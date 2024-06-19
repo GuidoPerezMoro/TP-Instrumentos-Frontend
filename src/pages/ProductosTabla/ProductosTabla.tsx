@@ -63,6 +63,7 @@ export const ProductosTabla: FC = () => {
   };
 
   const handleSave = async (instrumento: Instrumento) => {
+    console.log("Datos que se envían al servidor:", instrumento);
     if (instrumentoToEdit) {
       await editInstrumento(instrumento.id, instrumento);
     } else {
