@@ -1,4 +1,6 @@
 .generateExcelButton {
+  display: flex;
+  align-items: center;
   background-color: #007bff;
   color: white;
   border: none;
@@ -11,4 +13,8 @@
 
 .generateExcelButton:hover {
   background-color: #0056b3;
+}
+
+.icon {
+  margin-right: 8px;
 }

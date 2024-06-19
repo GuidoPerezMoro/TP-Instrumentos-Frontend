@@ -1,3 +1,5 @@
+// BarsChart.tsx
+
 import { FC, useEffect, useState } from "react";
 import {
   BarChart,
@@ -57,10 +59,16 @@ const BarsChart: FC = () => {
       .filter(([key]) => {
         const [year, month] = key.split("-").map(Number);
         const date = new Date(year, month - 1);
+        // Filtro para mostrar solo los meses dentro del rango especificado hacia atrás
         return date >= new Date(now.getFullYear(), now.getMonth() - months);
       })
-      .map(([key, value]) => ({ date: key, orders: value }));
-
+      .map(([key, value]) => ({ date: key, orders: value }))
+      // Ordenar los datos para que el mes más reciente esté primero
+      .sort((a, b) => {
+        const [yearA, monthA] = a.date.split("-").map(Number);
+        const [yearB, monthB] = b.date.split("-").map(Number);
+        return yearB - yearA || monthB - monthA;
+      });
     return filteredData;
   };
 

@@ -1,5 +1,6 @@
 import { FC } from "react";
 import styles from "./GenerateExcel.module.css";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { downloadPedidosExcel } from "../../services/PedidoApi";
 
 type GenerateExcelProps = {
@@ -23,7 +24,8 @@ const GenerateExcel: FC<GenerateExcelProps> = ({ startDate, endDate }) => {
 
   return (
     <button className={styles.generateExcelButton} onClick={handleDownload}>
-      Download Excel
+      <FileDownloadIcon className={styles.icon} />
+      Descargar Excel
     </button>
   );
 };

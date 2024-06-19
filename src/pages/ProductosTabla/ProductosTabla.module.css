@@ -1,4 +1,5 @@
 /* ProductosTabla.module.css */
+
 .title {
   width: 100%;
   display: flex;
@@ -18,7 +19,10 @@
 .excelSection {
   display: flex;
   align-items: center;
+  justify-content: flex-end; /* Alineación a la derecha */
+  padding: 5px 10px;
   margin-bottom: 20px;
+  margin-right: 36px;
 }
 
 .dateInputContainer {
