@@ -25,7 +25,7 @@ const GenerateExcel: FC<GenerateExcelProps> = ({ startDate, endDate }) => {
   return (
     <button className={styles.generateExcelButton} onClick={handleDownload}>
       <FileDownloadIcon className={styles.icon} />
-      Descargar Excel
+      Pedidos
     </button>
   );
 };

@@ -2,7 +2,7 @@
 import { Button, Form } from "react-bootstrap";
 import styles from "./Login.module.css";
 import { FormEvent, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { getByUsernameAndPassword } from "../../services/UsuarioApi";
 

@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { useAuth } from "../../hooks/useAuth";
 import GenerateExcel from "../../components/GenerateExcel/GenerateExcel";
+import { Box } from "@mui/material";
 
 export const ProductosTabla: FC = () => {
   const [instrumentos, setInstrumentos] = useState<Instrumento[]>([]);
@@ -133,44 +134,58 @@ export const ProductosTabla: FC = () => {
   return (
     <>
       <h1 className={styles.title}>Tabla de instrumentos</h1>
-      {isAuthenticated && (role == "DEVELOPER" || role == "ADMIN") && (
-        <div className={styles.excelSection}>
-          <div className={styles.dateInputContainer}>
-            <label className={styles.dateLabel} htmlFor="startDate">
-              Desde:
-            </label>
-            <input
-              type="date"
-              id="startDate"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-              className={styles.dateInput}
-            />
-          </div>
-          <div className={styles.dateInputContainer}>
-            <label className={styles.dateLabel} htmlFor="endDate">
-              Hasta:
-            </label>
-            <input
-              type="date"
-              id="endDate"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-              className={styles.dateInput}
-            />
-          </div>
-          <GenerateExcel startDate={startDate} endDate={endDate} />
-        </div>
-      )}
-      {isAuthenticated && (role === "DEVELOPER" || role === "ADMIN") && (
-        <Button
-          variant="primary"
-          onClick={openModal}
-          className={`${styles.button} ${styles["button-add"]}`}
-        >
-          Agregar Instrumento
-        </Button>
-      )}
+      <Box>
+        {isAuthenticated && (role === "DEVELOPER" || role === "ADMIN") && (
+          <Box>
+            <Button
+              variant="primary"
+              onClick={openModal}
+              className={`${styles.button} ${styles["button-add"]}`}
+            >
+              Agregar Instrumento
+            </Button>
+          </Box>
+        )}
+        <Box>
+          {isAuthenticated && (role == "DEVELOPER" || role == "ADMIN") && (
+            <Box>
+              <div className={styles.excelSection}>
+                <Box>
+                  <div className={styles.dateInputContainer}>
+                    <label className={styles.dateLabel} htmlFor="startDate">
+                      Desde:
+                    </label>
+                    <input
+                      type="date"
+                      id="startDate"
+                      value={startDate}
+                      onChange={(e) => setStartDate(e.target.value)}
+                      className={styles.dateInput}
+                    />
+                  </div>
+                </Box>
+                <Box>
+                  <div className={styles.dateInputContainer}>
+                    <label className={styles.dateLabel} htmlFor="endDate">
+                      Hasta:
+                    </label>
+                    <input
+                      type="date"
+                      id="endDate"
+                      value={endDate}
+                      onChange={(e) => setEndDate(e.target.value)}
+                      className={styles.dateInput}
+                    />
+                  </div>
+                </Box>
+                <Box>
+                  <GenerateExcel startDate={startDate} endDate={endDate} />
+                </Box>
+              </div>
+            </Box>
+          )}
+        </Box>
+      </Box>
 
       <table className={styles.table}>
         <thead>

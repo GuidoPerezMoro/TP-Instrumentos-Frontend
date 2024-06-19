@@ -11,7 +11,7 @@ import { createPedido } from "../../services/PedidoApi"; // Importamos el servic
 const MP_PUBLIC_KEY = import.meta.env.VITE_MP_PUBLIC_KEY;
 
 function CheckoutMP({ montoCarrito = 0 }) {
-  const { cart, clearCart } = useCarrito(); // Usamos el hook useCarrito para obtener el carrito y la función para limpiarlo
+  const { cart } = useCarrito(); // Usamos el hook useCarrito para obtener el carrito y la función para limpiarlo
   const [idPreference, setIdPreference] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [showPaymentButton, setShowPaymentButton] = useState<boolean>(false); // Estado para controlar la visibilidad del botón de Wallet

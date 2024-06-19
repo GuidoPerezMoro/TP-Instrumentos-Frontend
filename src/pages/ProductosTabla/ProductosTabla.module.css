@@ -19,10 +19,10 @@
 .excelSection {
   display: flex;
   align-items: center;
-  justify-content: flex-end; /* Alineación a la derecha */
+  justify-content: flex-start; /* Alineación a la derecha */
   padding: 5px 10px;
   margin-bottom: 20px;
-  margin-right: 36px;
+  margin-left: 20px;
 }
 
 .dateInputContainer {
@@ -92,7 +92,7 @@
   background-color: var(--primary-color);
   color: var(--button-text-color);
   padding: 10px 15px;
-  margin-bottom: 20px; /* Espacio debajo del botón */
+  margin-bottom: 10px; /* Espacio debajo del botón */
   margin-right: 3vw;
   float: right;
 }
