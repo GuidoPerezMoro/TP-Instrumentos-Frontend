@@ -15,6 +15,29 @@
   border-collapse: collapse;
 }
 
+.excelSection {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.dateInputContainer {
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+}
+
+.dateLabel {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.dateInput {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
 .th,
 .td {
   padding: 12px 15px;

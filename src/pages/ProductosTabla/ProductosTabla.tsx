@@ -1,3 +1,5 @@
+// ProductosTabla.tsx
+
 import { FC, useEffect, useState } from "react";
 import "../../styles/variables.css";
 import styles from "./ProductosTabla.module.css";
@@ -12,6 +14,7 @@ import { ModalInstrumento } from "../../components/ui/ModalInstrumento/ModalInst
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { useAuth } from "../../hooks/useAuth";
+import GenerateExcel from "../../components/GenerateExcel/GenerateExcel";
 
 export const ProductosTabla: FC = () => {
   const [instrumentos, setInstrumentos] = useState<Instrumento[]>([]);
@@ -23,6 +26,8 @@ export const ProductosTabla: FC = () => {
     key: string;
     direction: string;
   } | null>(null);
+  const [startDate, setStartDate] = useState<string>("");
+  const [endDate, setEndDate] = useState<string>("");
   const { isAuthenticated, role } = useAuth();
   const navigate = useNavigate();
 
@@ -128,6 +133,35 @@ export const ProductosTabla: FC = () => {
   return (
     <>
       <h1 className={styles.title}>Tabla de instrumentos</h1>
+      {isAuthenticated && (role == "DEVELOPER" || role == "ADMIN") && (
+        <div className={styles.excelSection}>
+          <div className={styles.dateInputContainer}>
+            <label className={styles.dateLabel} htmlFor="startDate">
+              Desde:
+            </label>
+            <input
+              type="date"
+              id="startDate"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              className={styles.dateInput}
+            />
+          </div>
+          <div className={styles.dateInputContainer}>
+            <label className={styles.dateLabel} htmlFor="endDate">
+              Hasta:
+            </label>
+            <input
+              type="date"
+              id="endDate"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              className={styles.dateInput}
+            />
+          </div>
+          <GenerateExcel startDate={startDate} endDate={endDate} />
+        </div>
+      )}
       {isAuthenticated && (role === "DEVELOPER" || role === "ADMIN") && (
         <Button
           variant="primary"
