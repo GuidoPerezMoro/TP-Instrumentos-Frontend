@@ -2,9 +2,7 @@
 
 - PDF Instrumento
 
-  - servicio comunicación api
   - Mejora pdf en backend
-  - Creacion de botón <GeneratePdf>
 
 - Excel Pedido
 
