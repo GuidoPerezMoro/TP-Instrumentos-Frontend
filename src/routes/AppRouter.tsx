@@ -25,6 +25,7 @@ export const AppRouter = () => {
           path="/productos"
           element={<PrivateRoute element={<Productos />} />}
         />
+        <Route path="/producto/:id" element={<ProductoDetalle />} />
         <Route
           path="/productos-tabla"
           element={
@@ -34,7 +35,6 @@ export const AppRouter = () => {
             />
           }
         />
-        <Route path="/producto/:id" element={<ProductoDetalle />} />
         <Route
           path="/carrito"
           element={
@@ -44,7 +44,15 @@ export const AppRouter = () => {
             />
           }
         />
-        <Route path="/estadisticas" element={<Estadisticas />} />
+        <Route
+          path="/estadisticas"
+          element={
+            <PrivateRoute
+              allowedRoles={["DEVELOPER", "ADMIN"]}
+              element={<Estadisticas />}
+            />
+          }
+        />
       </Routes>
     </>
   );
