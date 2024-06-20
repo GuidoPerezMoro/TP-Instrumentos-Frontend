@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // apiClient.ts
 const API_URL = import.meta.env.VITE_API_URL;
 

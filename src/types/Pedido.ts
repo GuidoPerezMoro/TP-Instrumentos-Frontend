@@ -1,3 +1,4 @@
+// Pedido.ts
 import { DetallePedido } from "./DetallePedido"
 export interface Pedido {
   id: number

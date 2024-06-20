@@ -1,0 +1,28 @@
+/* PieChart1.module.css */
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  width: 100%; /* Ajustar el ancho según necesites */
+}
+
+.chartContainer {
+  width: 90%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sliderContainer {
+  width: 90%; /* Ajustar el ancho según necesites */
+  margin-top: 20px;
+}
+
+.legendContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-left: 20px; /* Espacio a la izquierda del contenedor de leyendas */
+}

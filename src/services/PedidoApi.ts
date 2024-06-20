@@ -27,6 +27,10 @@ export function getPedidosByMonthYear() {
     return request(`${endpoint}/getByMonthYear`);
 }
 
+export function getPedidoCountByInstrumento() {
+    return request(`${endpoint}/countByInstrumento`);
+}
+
 export async function downloadPedidosExcel(startDate: string, endDate: string): Promise<void> {
     if (!startDate || !endDate) {
         alert('Por favor, selecciona ambas fechas.');

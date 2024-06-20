@@ -11,16 +11,32 @@
 .chartsContainer {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start; /* Alinear elementos al inicio del contenedor */
+}
+
+.chartSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
 }
 
 .chartBox {
-  flex: 1;
-  margin: 0 10px;
+  width: 90%; /* Hacer que el gráfico ocupe todo el ancho del contenedor */
+  margin-top: 20px;
 }
 
 .divider {
   width: 2px;
   height: 550px;
   background-color: #999;
-  margin: 0 10px;
+  margin: 0 20px;
+}
+
+.selectContainer {
+  margin-bottom: 20px; /* Margen inferior para el selector */
+}
+
+.select {
+  min-width: 200px; /* Asegurar que el selector tenga un tamaño mínimo */
 }
