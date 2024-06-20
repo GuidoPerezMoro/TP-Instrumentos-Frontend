@@ -1,12 +1,11 @@
-// PieChart.tsx
+// PieChartPedidosXInstrumento.tsx
 import { useState, useEffect, FC } from "react";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import styles from "./PieChart.module.css"; // Importar los estilos
-import { Instrumento } from "../../../../types/Instrumento";
-import { getAllInstrumentos } from "../../../../services/instrumentoApi";
+import styles from "./PieChartPedidosXInstrumento.module.css"; // Importar los estilos
+import { getPedidoCountByInstrumento } from "../../../../../services/PedidoApi";
 
 // Define colors for the pie chart
 const COLORS = [
@@ -22,31 +21,43 @@ const COLORS = [
   "#C70039",
 ];
 
-const CustomPieChart: FC = () => {
-  const [instrumentos, setInstrumentos] = useState<Instrumento[]>([]);
+interface PedidoCount {
+  instrumento: string;
+  count: number;
+}
+
+const PieChartPedidosXInstrumento: FC = () => {
+  const [pedidoCounts, setPedidoCounts] = useState<PedidoCount[]>([]);
   const [numToShow, setNumToShow] = useState<number>(5);
 
   useEffect(() => {
-    getAllInstrumentos()
+    getPedidoCountByInstrumento()
       .then((data) => {
-        setInstrumentos(data);
+        if (data && typeof data === "object") {
+          const parsedData = Object.entries(data).map(
+            ([instrumento, count]) => ({
+              instrumento,
+              count: Number(count),
+            })
+          );
+          setPedidoCounts(parsedData);
+        } else {
+          console.error("Error: Data fetched is not an object");
+        }
       })
       .catch((error) => {
-        console.error("Error al obtener los instrumentos:", error);
+        console.error("Error al obtener los pedidos por instrumento:", error);
       });
   }, []);
 
-  const sortedData = instrumentos
-    .sort((a, b) => b.cantidadVendida - a.cantidadVendida)
+  const sortedData = pedidoCounts
+    .sort((a, b) => b.count - a.count)
     .slice(0, numToShow);
-  const totalSales = sortedData.reduce(
-    (acc, item) => acc + item.cantidadVendida,
-    0
-  );
+  const totalOrders = sortedData.reduce((acc, item) => acc + item.count, 0);
   const pieData = sortedData.map((item) => ({
     name: item.instrumento,
-    value: item.cantidadVendida,
-    percentage: ((item.cantidadVendida / totalSales) * 100).toFixed(2),
+    value: item.count,
+    percentage: ((item.count / totalOrders) * 100).toFixed(2),
   }));
 
   const handleSliderChange = (_event: Event, newValue: number | number[]) => {
@@ -86,7 +97,7 @@ const CustomPieChart: FC = () => {
             valueLabelDisplay="auto"
             step={1}
             marks
-            min={2}
+            min={1}
             max={10}
           />
         </Box>
@@ -109,7 +120,7 @@ const CustomPieChart: FC = () => {
                 marginRight: "5px",
               }}
             ></div>
-            <Typography variant="body1">{`${item.instrumento}: ${item.cantidadVendida}`}</Typography>
+            <Typography variant="body1">{`${item.instrumento}: ${item.count}`}</Typography>
           </Box>
         ))}
       </Box>
@@ -117,4 +128,4 @@ const CustomPieChart: FC = () => {
   );
 };
 
-export default CustomPieChart;
+export default PieChartPedidosXInstrumento;

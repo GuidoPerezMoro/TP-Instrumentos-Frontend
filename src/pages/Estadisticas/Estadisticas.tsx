@@ -5,11 +5,11 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import BarsChart from "../../components/ui/Charts/BarsChart/BarsChart";
 import styles from "./Estadisticas.module.css";
-import PieChart1 from "../../components/ui/Charts/PieChart1/PieChart1";
-import PieChart2 from "../../components/ui/Charts/PieChart2/PieChart2";
+import PieChartPedidosXInstrumento from "../../components/ui/Charts/PieChart/PieChartPedidosXInstrumento/PieChartPedidosXInstrumento";
+import PieChartInstrumentosVendidos from "../../components/ui/Charts/PieChart/PieChartInstrumentosVendidos/PieChartInstrumentosVendidos";
 
 const Estadisticas: FC = () => {
-  const [selectedChart, setSelectedChart] = useState<string>("chart2");
+  const [selectedChart, setSelectedChart] = useState<string>("chartPedidos");
 
   const handleChartChange = (event: SelectChangeEvent<string>) => {
     setSelectedChart(event.target.value as string);
@@ -32,12 +32,20 @@ const Estadisticas: FC = () => {
               inputProps={{ "aria-label": "Seleccionar gráfico" }}
               className={styles.select}
             >
-              <MenuItem value="chart2">Gráfico de Torta 1</MenuItem>
-              <MenuItem value="chart1">Gráfico de Torta 2</MenuItem>
+              <MenuItem value="chartPedidos">
+                Pedidos vendidos por instrumento
+              </MenuItem>
+              <MenuItem value="chartInstrumentos">
+                Instrumentos vendidos
+              </MenuItem>
             </Select>
           </Box>
           <Box className={styles.chartBox}>
-            {selectedChart === "chart1" ? <PieChart1 /> : <PieChart2 />}
+            {selectedChart === "chartPedidos" ? (
+              <PieChartPedidosXInstrumento />
+            ) : (
+              <PieChartInstrumentosVendidos />
+            )}
           </Box>
         </Box>
         <Box className={styles.divider}></Box>

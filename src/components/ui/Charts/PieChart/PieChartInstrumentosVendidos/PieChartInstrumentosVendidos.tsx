@@ -1,12 +1,12 @@
-// PieChart1.tsx
+// PieChartInstrumentosVendidos.tsx
 import { useState, useEffect, FC } from "react";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import styles from "./PieChart1.module.css"; // Importar los estilos
-import { Instrumento } from "../../../../types/Instrumento";
-import { getAllInstrumentos } from "../../../../services/instrumentoApi";
+import styles from "./PieChartInstrumentosVendidos.module.css"; // Importar los estilos
+import { Instrumento } from "../../../../../types/Instrumento";
+import { getAllInstrumentos } from "../../../../../services/instrumentoApi";
 
 // Define colors for the pie chart
 const COLORS = [
@@ -22,7 +22,7 @@ const COLORS = [
   "#C70039",
 ];
 
-const CustomPieChart: FC = () => {
+const PieChartInstrumentosVendidos: FC = () => {
   const [instrumentos, setInstrumentos] = useState<Instrumento[]>([]);
   const [numToShow, setNumToShow] = useState<number>(5);
 
@@ -39,10 +39,12 @@ const CustomPieChart: FC = () => {
   const sortedData = instrumentos
     .sort((a, b) => b.cantidadVendida - a.cantidadVendida)
     .slice(0, numToShow);
+
   const totalSales = sortedData.reduce(
     (acc, item) => acc + item.cantidadVendida,
     0
   );
+
   const pieData = sortedData.map((item) => ({
     name: item.instrumento,
     value: item.cantidadVendida,
@@ -117,4 +119,4 @@ const CustomPieChart: FC = () => {
   );
 };
 
-export default CustomPieChart;
+export default PieChartInstrumentosVendidos;
